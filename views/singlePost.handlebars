@@ -1,0 +1,28 @@
+<div class="container">
+     <div class="card">
+  <div class="card-header">
+   {{post.title}}
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{post.text}}</p>
+    <p class="card-text small" > written by{{post.user.username}}</p>
+  </div>
+</div>
+
+
+</div>
+
+<div class="container">
+    {{#if post.comments}}
+    <h2>Comments:</h2>
+{{#each post.comments}}
+<div class="card w-50">
+  <div class="card-body">
+    <h5 class="card-title">{{user.username}}</h5>
+    <p class="card-text">{{text}}</p>
+    
+  </div>
+</div>
+{{/each}}
+{{/if}}
+</div>
