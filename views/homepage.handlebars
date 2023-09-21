@@ -1,0 +1,14 @@
+<div class="container">
+    {{#each postData}}
+    <div class="card">
+  <div class="card-header">
+   {{title}}
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{text}}</p>
+    <p class="card-text" > written by{{user.username}}</p>
+    <a href="/post/{{id}}" class="btn btn-primary">Comment</a>
+  </div>
+</div>
+    {{/each}}
+</div>
