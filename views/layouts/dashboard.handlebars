@@ -1,0 +1,70 @@
+<!---user posts will render---->
+<div class="container dash-container">
+<div class="columns">
+  <div class="column is-1">
+  <p id="newPost"class=" title is-5 has-text-centered">Share your Thoughts</p>
+<button id="new"class="button">New Post</button>
+</div>
+  <div class="column is-9">
+{{#if posts}}
+ {{#each posts}}
+<div class="card dash-card mb-3">
+  <header class="card-header delPost">
+    <p class="card-header-title">
+      {{title}}
+    </p>
+     <a class="" href="/dashboard/post/{{id}}"><span class="icon has-text-dark">
+  <i class="fa-solid fa-pen"></i>
+</span></a>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      {{text}}
+    </div>
+  </div>
+  <footer class="card-footer ">
+  <div class="card-footer-item has-text-centered">
+     by {{user.username}}
+  </div>
+  </footer>
+</div>
+ {{/each}}
+{{else}}
+<div>You have no posts yet</div>
+{{/if}}
+</div>
+
+</div>
+</div>
+
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title has-text-centered">New Post</p>
+      <button id="closeModal" class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <form class="newPost">
+     <div class="field">
+    <label class="label">Title</label>
+      <div class="control">
+      <input id="newPostTitle"class="input" type="text" placeholder="Title">
+      </div>
+    </div>
+     <div class="field">
+   <label class="label">Content</label>
+   <div class="control">
+    <textarea id="newPostText" class="textarea" placeholder="Your words"></textarea>
+   </div>
+     </div>
+     </form>
+    </section>
+    <footer class="modal-card-foot">
+      <button id="savePost"class="button is-success">Post</button>
+      <button id="cancel"class="button">Cancel</button>
+    </footer>
+  </div>
+</div>
+
+<script src="/js/modal.js"></script>
