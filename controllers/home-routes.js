@@ -1,44 +1,61 @@
 const router= require('express').Router()
-const {Post, User, Comments} =require('../models')
+const {Post, User,Comments}= require("../models")
+
+
 
 router.get('/', async (req, res)=>{
     try{
-        const posts =await Post.findAll({
+        const posts= await Post.findAll({
             include:[User]
         })
 
-        const postData = posts.map((post)=> post.get({plain:true}))
-        res.render('homepage', {postData})
-
-    }catch(err){
-        console.error(err)
+        const postData= posts.map((post)=>post.get({plain:true}))
+        console.log(postData,req.session.userId,"rendering in index")
+        res.render('homepage', {postData, userId:req.session.userId})
+    } catch(err){
+        console.log(err)
     }
-})
+   
+});
 
-router.get('/post/:id', async (req, res)=>{
+// get one post
+router.get('/post/:id', async (req,res)=>{
+    console.log(req.params.id, "is this coming through?")
     try{
-        const onePost =Post.findByPk(
-            req.params.id,
+        const onePost= Post.findByPk(
+            req.params.id ,
             {
-                include:[{model:User, attributes:{exclude:'password'}},
-            {model:Comments, include:[{model:User, attributes:{exclude:'password'}}]}]
-            }
-        )
-        const post= (await onePost).get({plain:true})
-        res.render('singlePost', {post})
-
-    }catch (err){
-        console.error(err)
+          
+            include:[{model:User, attributes:{exclude:"password"}},
+                {model:Comments, include:[{model:User, attributes:{exclude:"password"}}]} ]
+        })
+        if(onePost){
+            const post =(await onePost).get({plain:true})
+            // console.log(post, "one post route result")
+            // console.log(post, 'does this work?')
+           return res.render('single-post',{post,  userId:req.session.userId})
+        }
+        else{
+            res.status(404).end();
+        }
+       
+    }catch(err){
+        console.log(err)
     }
 })
 
 router.get("/login", (req, res)=>{
-    res.render("login")
+    if(req.session.loggedIn){
+        res.redirect('/dashboard')
+    }
+    res.render('login')
+})
+router.get("/signup", (req, res)=>{
+    console.log("route is being hit")
+    if(req.session.loggedIn){
+        res.redirect('/dashboard')
+    }
+    res.render('register')
 })
 
-router.get("/register", (req, res)=>{
-    res.render("register")
-})
-
-
-module.exports=router
+module.exports=router;

@@ -1,28 +1,27 @@
-<div class="container">
-     <div class="card">
-  <div class="card-header">
-   {{post.title}}
+<!---Single Post --->
+
+<div class="container single-dash-container">
+  <div class="card">
+  <header class="card-header">
+  </header>
+  <div class="card-content">
+     <div class="content">
+      <textarea class="textarea"id="upTitle"rows="1">{{post.title}}</textarea>
+    </div>
+    <div class="content">
+      <textarea class="textarea" id="upBody">{{post.text}}</textarea>
+    </div>
   </div>
-  <div class="card-body">
-    <p class="card-text">{{post.text}}</p>
-    <p class="card-text small" > written by{{post.user.username}}</p>
-  </div>
+  <footer class="card-footer">
+    <a href="#" data-id={{post.id}} class="card-footer-item upPost">Save <span class="icon">
+       <i class="fa-solid fa-circle-check"></i>
+      </span></a>
+     <a href="#" data-id={{post.id}} class="card-footer-item delPost">Delete <span class="icon">
+       <i class="fa-solid fa-trash-can"></i>
+      </span></a>
+  </footer>
 </div>
 
-
 </div>
 
-<div class="container">
-    {{#if post.comments}}
-    <h2>Comments:</h2>
-{{#each post.comments}}
-<div class="card w-50">
-  <div class="card-body">
-    <h5 class="card-title">{{user.username}}</h5>
-    <p class="card-text">{{text}}</p>
-    
-  </div>
-</div>
-{{/each}}
-{{/if}}
-</div>
+<script src="/js/edit.js"></script>
